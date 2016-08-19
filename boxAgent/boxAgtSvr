@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# chkconfig: 2345 08 92
+#
+#  
+### BEGIN INIT INFO
+# Provides: boxAgtSvr
+# Required-Start: $network $remote_fs $syslog boxPrtSvr
+# Required-Stop: $network $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop:  0 1 6
+# Short-Description: boxAgent
+# Description: boxAgent
+### END INIT INFO
+#  
+START="/home/pi/oprint/bin/python /home/pi/oprint/lib/python2.7/site-packages/boxAgent-1.0.0-py2.7.egg/boxAgent.pyc >/dev/null 2>&1"
+#START="daemon /home/pi/oprint/lib/python2.7/site-packages/boxAgent-1.0.0-py2.7.egg/boxAgent.pyc >/dev/null 2>&1"
+#. /etc/rc.d/init.d/functions
+. /lib/lsb/init-functions
+case "$1" in
+	restart)
+		log_daemon_msg "Restarting" "Box Agent"
+		pid=`ps -ef |grep boxAgent.py|grep grep -v| awk '{print $2}'`
+		if [ "$pid" ]; then
+        	kill -9 ${pid}
+        fi
+		$START
+		log_end_msg 0
+	;;
+	start)
+		log_daemon_msg "Starting" "Box Agent"
+		$START
+		log_end_msg 0
+	;;
+	stop)
+		log_daemon_msg "Stoping" "Box Agent"
+		pid=`ps -ef |grep boxAgent.py|grep grep -v| awk '{print $2}'`
+		if [ "$pid" ]; then
+        	kill -9 ${pid}
+        fi
+		log_end_msg 0
+	;;
+	*)
+		echo "Usage: $0 {restart | start | stop}"
+		exit 1
+esac
+exit 0

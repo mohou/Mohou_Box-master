@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# chkconfig: 2345 08 92
+#
+#  
+### BEGIN INIT INFO
+# Provides: boxPrtSvr
+# Required-Start: $network $remote_fs $syslog
+# Required-Stop: $network $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop:  0 1 6
+# Short-Description: boxPrint
+# Description: boxPrint
+### END INIT INFO
+#
+PROC_DIR=/home/pi/oprint/lib/python2.7/site-packages/boxPrint-1.0.0-py2.7.egg
+START="/home/pi/oprint/bin/python $PROC_DIR/boxPrint.pyc --log_file_prefix=$PROC_DIR/logs/boxPrint.log >/dev/null 2>&1"
+#START="daemon /home/pi/oprint/lib/python2.7/site-packages/boxPrint-1.0.0-py2.7.egg/boxPrint.pyc >/dev/null 2>&1"
+#. /etc/rc.d/init.d/functions
+. /lib/lsb/init-functions
+case "$1" in
+	restart)
+		log_daemon_msg "Restarting" "Box Print"
+		pid=`ps -ef |grep boxPrint.py|grep grep -v| awk '{print $2}'`
+		if [ "$pid" ]; then
+        	kill -9 ${pid}
+        fi
+		$START
+		log_end_msg 0
+	;;
+	start)
+		log_daemon_msg "Starting" "Box Print"
+		$START
+		log_end_msg 0
+	;;
+	stop)
+		log_daemon_msg "Stoping" "Box Print"
+		pid=`ps -ef |grep boxPrint.py|grep grep -v| awk '{print $2}'`
+		if [ "$pid" ]; then
+        	kill -9 ${pid}
+        fi
+		log_end_msg 0
+	;;
+	*)
+		echo "Usage: $0 {restart | start | stop}"
+		exit 1
+esac
+exit 0

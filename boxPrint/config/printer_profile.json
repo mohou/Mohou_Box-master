@@ -1,0 +1,18 @@
+{
+    "name": "AUTO",
+    "alias": "__AUTO__",
+    "port": "AUTO",
+    "baudrate":[115200],
+    "driver": "printrun_printer",
+    "end_gcodes": ["M104 S0", "G28 X0 Y0", "M84"],
+    "outage_gcodes": ["M109 S200", "G91", "G1 Z+5 E-7", "G90", "G28 X0 Y0"],
+    "boxid": "",
+    "box_name": "AUTO",
+    "gpx_verbose": false,
+    "type": "",
+    "pause_lift_height":5,
+    "pause_extrude_length":7,
+    "correct_lines": 50,
+    "serial_verbose":false,
+    "logging":"info"
+}

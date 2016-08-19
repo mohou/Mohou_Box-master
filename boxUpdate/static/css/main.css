@@ -1,0 +1,120 @@
+*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+h1,h2,h3,h4,h5,h6{font-weight:normal; font-size:100%;}
+img{border:0; *+margin-bottom:0px; margin-bottom:-4px;}
+i,b,em,strong{font-style:normal;font-weight:normal;}
+li{list-style:none;}
+a{text-decoration:none; -webkit-tap-highlight-color:transparent; color:#444;}
+a:link{color:#444;text-decoration:none;}
+
+body{font-family:"Microsoft YaHei",Verdana, Geneva, sans-serif;font-size:12px; background:#f2f2f2; color:#636363;}
+input,button,select,textarea{outline:none;}
+
+
+.clearfix{ clear:both;}
+
+
+html{ padding-bottom:1px; -webkit-text-size-adjust:none; height:100%; width:100%;}
+
+body{ background:#fff; padding-bottom:10px; height:100%; width:100%;}
+
+.box{ width:90%; margin:0 auto; margin-top:30px; min-width:300px;}
+.new_header_div{width:90%; min-width:300px; margin: 0 auto;}
+
+.header{ height:130px;}
+.nav{ background:url(../img/wifi/navBg.png) repeat-x; height:28px; border-radius:5px;}
+.logo{ padding:10px 20px;}
+
+.main{ background:#fff; border-radius:5px;}
+.main h2{ padding:5px 10px;background:#37759a; height:40px; line-height:30px;color:#fff;font-size:14px;cursor: pointer;}
+.main .main_body{ padding:0 15px;}
+.wifi_conn .main_body{padding:0;}
+.media tr td{ height:50px;}
+tr td.borderBttom{padding-right:5px;}
+.media{table-layout: fixed;}
+.media .tdOne{ padding-left:10px;font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.media .tdOne a{color:#000;font-size:16px;font-weight:100;}
+
+.media .tdTwo,.media .tdThree,.media .tdFour{ text-align:center;}
+
+@media (max-width: 800px) {
+  .BtnBox .BtnBoxRight{  padding-right:5px;}
+}
+
+@media (min-width: 800px) {
+  .media .tdOne{ width:70%;}
+  .media .tdTwo{ width:10%;}
+ 
+}
+
+@media (min-width: 960px) {
+  .media .tdOne{ width:85%;}
+  .media .tdTwo{ width:10%;font-size:14px;color:#888;}
+}
+@media (min-width: 1024px) {
+  .box{ width:1024px; margin:0 auto; margin-top:30px; min-width:330px;}
+   .new_header_div{width:1024px; height: 44px; margin: 0 auto;}
+  
+}
+
+.hide{ display:none;}
+.show{ display:table-row;}
+.linkBtn{margin:10px 0; width:126px;height:44px; border:0; background:#3A759A; padding:5px 15px; color:#fff;font-size:17px;}
+
+.BtnBox{ height:50px; overflow:hidden; line-height:50px;}
+.BtnBoxLeft input{ margin-right:5px; vertical-align:middle;}
+.BtnBoxLeft{ float:left; padding-left:10px;}
+.BtnBoxRight{ float:right;}
+.skip{ width:140px; height:40px; border:none; color:#fff;font-size:18px; margin-right:20px; background:#C52825; cursor:pointer;}
+
+.mask{ position:absolute; top:0; left:0; z-index:10; background:#000; width:100%; height:130%; opacity:0.5; filter:alpha(opacity=50); -moz-opacity:0.5;}
+.passwordBox{ position:absolute; width:300px;  background:#fff; z-index:99; left:50%; top:180px; margin-left:-150px; }
+.passwordBox h3{ background:url(../img/wifi/h2Bg.png) repeat-x; height:29px; line-height:29px; padding-left:10px;}
+.passwordBox .passwordBoxMain{ padding:10px;}
+.passwordBox .passwordBoxMain p{ text-align:center; line-height:35px;}
+.passwordBox .passwordBoxMain p label{ width:80px; display:inline-block; text-align:right;}
+.passwordBoxMain .passwordInput{  padding:6px; border-radius:3px; border:1px solid #ccc;}
+.passwordBoxMain .btn input{ margin:0px 10px; padding:6px 8px; margin-top:10px; border-radius:5px; border:1px solid #ccc; background:#E4E4E4; color:#666;}
+/* messages */
+.messages .main_body{ padding:50px; text-align:center;}
+.messages .main_body p{ padding:10px 0;}
+.messages .main_body p a{ text-decoration:underline; color:#666;}
+.success{ color:#72c736; font-size:30px;}
+.thank{ color:#B7B7B7;}
+
+.setParameters h3{ font-size:16px; color:#1e1e1e;font-family:宋体;font-weight:bold; padding:10px 0;}
+.setParameters li p{ padding:3px 0;}
+.setParameters li p input.radio{ vertical-align:middle; margin-right:5px;}
+.subItem { padding:10px 0;}
+.subItem label{ display:inline-block; width:63px;}
+.radioBox input{ width:46px; padding:4px 4px;border:1px solid #aaa; }
+input:disabled{ border:1px solid #d5d5d5;background:#fff;cursor:not-allowed; }
+.subItem li{ overflow:hidden; padding:3px 0;}
+.subItem li label{ float:left;font-size:14px;color:#969696;}
+.radioBox{ float:left; margin-left:10px;}
+.skip:hover{ background:#ad2523;}
+.next{ text-decoration:underline !important;font-size:16px;color:#DD0000 !important;}
+.next:hover{ text-decoration:none;}
+.wifi_setting input[type="text"]{ text-align:center;}
+input[type="button"]{
+	cursor:pointer;
+}
+.linkName_red{ color: #fb0018 !important;font-weight:bold !important;}
+.new_header{ width: 100%; height: 44px; background: #133b55;}
+/* bind/unbind setting */
+/* .bind_setting {}
+.bindItem { padding:10px 0;}
+.bindItem label{ display:inline-block; width:63px;}
+.bindItem li{ overflow:hidden; padding:3px 0;}
+.bindItem li label{ float:left;font-size:14px;}
+.bindSubItem{ float:left; margin-left:10px;}
+.bindSubItem input{ width:140; padding:4px 4px;border:1px solid #aaa; font-family:'Verdana' }
+*/
+.printItem label{ display:inline-block; width:210px;}
+.printItem li{ overflow:hidden; padding:3px 0;}
+.printItem li label{ float:left;font-size:14px;}
+.printItem select{ width:200px; padding:4px 4px;border:1px solid #aaa; font-family:'Verdana' }
+.printSubItem input[type="text"]{ width:200px; padding:4px 4px;border:1px solid #aaa; font-family:'Verdana' }
+
+.serialSubItem input[type="text"]{ width:200px; padding:4px 4px;border:1px solid #aaa; font-family:'Verdana' }
+
+

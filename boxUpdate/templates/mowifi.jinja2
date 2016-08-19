@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+	<meta name="HandheldFriendly" content="true"/>
+	<meta name="format-detection" content="telephone=no">
+    <title>魔猴盒子网络连接设定页面</title>
+	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/main.css") }}">
+	<script src="{{ static_url("js/app/jquery-1.11.1.min.js") }}" type="text/javascript"></script>
+	<script src="{{ static_url("js/app/wifiPublic.js") }}" type="text/javascript"></script>
+</head>
+<body>
+
+<!--遮罩层-->
+<div class="mask" style="display:none;"></div>
+
+<!--输入密码弹出框-->
+<div class="passwordBox" style="display:none;" id="passwordBox">
+  <h3>请输入密码</h3>
+  <div class="passwordBoxMain">
+    <p>
+      <label>连接热点：</label>
+      <input readonly="true" style="padding: 6px; border-radius: 3px; border: 1px none #ccc;" id="connect_ssid" value="" type="text" />
+    </p>
+    <p>
+      <label>输入密码：</label>
+      <input id="password" type="password" class="passwordInput" value="" />
+    </p>
+    <p>
+      <input type="checkbox" id="show_passwd" />&nbsp;&nbsp;显示密码
+    </p>
+    <p class="btn">
+      <input type="button" value="确定" class="submitBtn">
+      <input type="button" value="关闭" class="closeBtn">
+    </p>
+  </div>
+</div>
+
+ 
+  <!--新头部-->
+  <div class="new_header">
+  	<div class="new_header_div">
+  		<a href="javascript:;"><img src="static/img/logoBg.png" width="86" style="height:40px; margin-top: 3px;"></a>
+  	</div>
+  </div>
+
+
+<div class="box">   
+  <!--1.无线网络链接-->
+  <div class="main wifi_conn">
+  	<a href="javascript:;" id="shuaxin" style="float: right; margin-top: 4px; margin-right: 10px;"><img src="static/img/wifi/shuaxin.png"></a>
+    <h2>将你的盒子接入互联网<span> [ ↑ ]</span></h2>
+    <div class="main_body" style="margin-bottom:10px;">
+      <table width="100%" class="media" id="wifi_table" style="border-collapse:collapse;"></table>
+    </div>
+  </div>
+
+  <!--2.无线网络IP设置-->
+  <div class="main wifi_setting" style="margin-bottom:10px;">
+    <h2>无线IP设置<span> [ ↓ ]</span></h2>
+    <div class="main_body" style="display:none">
+      <ul class="setParameters">
+        <li class="wifi">
+          <p>
+            <input type="radio" class="radio" name="wifi_radio" zt="1" onOff="3" id="wifi_ipAuto2" {% if wifi_info["dhcp"] == 1 %}checked{%end%}>
+            <label for="wifi_ipAuto2" style="font-size:14px; color:#1e1e1e;">自动获取IP地址</label></p>
+          <p>
+            <input type="radio" class="radio" name="wifi_radio" zt="0" onOff="4" id="wifi_ipSd2" {% if wifi_info["dhcp"] == 0 %}checked{%end%}>
+            <label for="wifi_ipSd2" style="font-size:14px; color:#1e1e1e;">使用下面的IP地址</label></p>
+          <ul class="subItem">
+            <li>
+              <label>IP地址:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wifi_ip_sec1"  onkeyup="checkText1('wifi_ip_sec1','wifi_ip_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["ip_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_ip_sec2"  onkeyup="checkText2('wifi_ip_sec2','wifi_ip_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["ip_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wifi_ip_sec3"  onkeyup="checkText3('wifi_ip_sec3','wifi_ip_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["ip_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_ip_sec4" onkeyup="checkText4('wifi_ip_sec4','wifi_mask_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["ip_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>子网掩码:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wifi_mask_sec1"  onkeyup="checkText5('wifi_mask_sec1','wifi_mask_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false"  disabled="disabled" value="{{ wifi_info["mask_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_mask_sec2"  onkeyup="checkText2('wifi_mask_sec2','wifi_mask_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["mask_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wifi_mask_sec3"  onkeyup="checkText3('wifi_mask_sec3','wifi_mask_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["mask_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_mask_sec4" onkeyup="checkText4('wifi_mask_sec4','wifi_gateway_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["mask_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>默认网关:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wifi_gateway_sec1"  onkeyup="checkText1('wifi_gateway_sec1','wifi_gateway_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["gateway_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_gateway_sec2"  onkeyup="checkText2('wifi_gateway_sec2','wifi_gateway_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["gateway_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wifi_gateway_sec3"  onkeyup="checkText3('wifi_gateway_sec3','wifi_gateway_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["gateway_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_gateway_sec4" onkeyup="checkText4('wifi_gateway_sec4','wifi_dns_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wifi_info["gateway_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>DNS:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wifi_dns_sec1"  onkeyup="checkText1('wifi_dns_sec1','wifi_dns_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_dns_sec2"  onkeyup="checkText2('wifi_dns_sec2','wifi_dns_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wifi_dns_sec3"  onkeyup="checkText3('wifi_dns_sec3','wifi_dns_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wifi_dns_sec4" onkeyup="checkText4('wifi_dns_sec4')" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec4"] }}"/>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+     
+      <div class="BtnBox">
+         <input type="button" value="完成" class="skip" id="wifi_endBtn" style="margin:0;float:right;margin-top:10px;">
+      </div>
+    </div>
+  </div>
+    <!--3.有线网络IP设置-->
+  <div class="main wire_setting" style="margin-bottom:10px;">
+    <h2>有线IP设置<span> [ ↓ ]</span></h2>
+    <div class="main_body" style="display:none">
+      <ul class="setParameters">
+        <li class="wire">
+          <p>
+            <input type="radio" class="radio" name="wire_radio" zt="1" onOff="3" id="wire_ipAuto2" {% if wire_info["dhcp"] == 1 %}checked{%end%}>
+            <label for="wire_ipAuto2" style="font-size:14px; color:#1e1e1e;">自动获取IP地址</label></p>
+          <p>
+            <input type="radio" class="radio" name="wire_radio" zt="0" onOff="4" id="wire_ipSd2" {% if wire_info["dhcp"] == 0 %}checked{%end%}>
+            <label for="wire_ipSd2" style="font-size:14px; color:#1e1e1e;">使用下面的IP地址</label> </p>
+          <ul class="subItem">
+            <li>
+              <label>IP地址:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wire_ip_sec1"  onkeyup="checkText1('wire_ip_sec1','wire_ip_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["ip_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_ip_sec2"  onkeyup="checkText2('wire_ip_sec2','wire_ip_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["ip_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wire_ip_sec3"  onkeyup="checkText3('wire_ip_sec3','wire_ip_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["ip_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_ip_sec4" onkeyup="checkText4('wire_ip_sec4','wire_mask_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["ip_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>子网掩码:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wire_mask_sec1"  onkeyup="checkText5('wire_mask_sec1','wire_mask_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false"  disabled="disabled" value="{{ wire_info["mask_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_mask_sec2"  onkeyup="checkText2('wire_mask_sec2','wire_mask_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["mask_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wire_mask_sec3"  onkeyup="checkText3('wire_mask_sec3','wire_mask_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["mask_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_mask_sec4" onkeyup="checkText4('wire_mask_sec4','wire_gateway_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["mask_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>默认网关:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wire_gateway_sec1"  onkeyup="checkText1('wire_gateway_sec1','wire_gateway_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["gateway_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_gateway_sec2"  onkeyup="checkText2('wire_gateway_sec2','wire_gateway_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["gateway_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wire_gateway_sec3"  onkeyup="checkText3('wire_gateway_sec3','wire_gateway_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["gateway_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_gateway_sec4" onkeyup="checkText4('wire_gateway_sec4','wire_dns_sec1',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ wire_info["gateway_sec4"] }}"/>
+              </div>
+            </li>
+            <li>
+              <label>DNS:</label>
+              <div class="radioBox">
+                <input type="text"  maxlength="3" id="wire_dns_sec1"  onkeyup="checkText1('wire_dns_sec1','wire_dns_sec2',event)" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec1"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_dns_sec2"  onkeyup="checkText2('wire_dns_sec2','wire_dns_sec3',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec2"] }}"/>
+                .
+                <input type="text" maxlength="3" id="wire_dns_sec3"  onkeyup="checkText3('wire_dns_sec3','wire_dns_sec4',event)"  onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec3"] }}"/>
+                .
+                <input type="text"  maxlength="3" id="wire_dns_sec4" onkeyup="checkText4('wire_dns_sec4')" onkeypress="checkKeyCode(event)" onpaste="return false" disabled="disabled" value="{{ dns_info["dns_sec4"] }}"/>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="BtnBox">
+         <input type="button" value="完成" class="skip" id="wire_endBtn" style="margin:0;float:right;margin-top:10px;">
+      </div>
+    </div>
+  </div>
+  <!--4. 注册序列号-->
+  <div class="main serial_setting" style="margin-bottom:10px;">
+    <h2>注册序列号<span> [ ↓ ]</span></h2>
+    <div class="main_body" style="display:none">
+      <ul class="setParameters">
+        <li class="serial">
+          <ul class="subItem">
+            <li>
+              <label style="color: rgb(0, 0, 0);">序列号:</label>
+              <div class="serialSubItem">
+                <input type="text" maxlength="32" id="serial_number" value="{{ sn }}"/>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="BtnBox">
+         <input type="button" value="完成" class="skip" id="serial_endBtn" style="margin:0;float:right;margin-top:10px;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--5. 消息显示 -->
+<div class="main messages" style="display:none;">
+  <h2>设置成功</h2>
+  <div class="main_body">
+    <p class="success">设置成功</p>
+    <p class="thank">感谢您对魔猴盒子的支持</p>
+  </div>
+</div>
+
+</body>
+</html>

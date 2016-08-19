@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+	<meta name="HandheldFriendly" content="true"/>
+	<meta name="format-detection"content="telephone=no">
+    <title>魔猴盒子升级页面</title>
+	
+	<link rel="shortcut icon" href="static/img/tentacle-32x32.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="static/img/apple-touch-icon-144x144.png">
+	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.min.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap-modal.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("font/font-awesome/css/font-awesome.min.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/jquery.fileupload-ui.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/jquery.pnotify.default.css") }}">
+	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/style.css") }}">
+	
+	
+	<script src="{{ static_url("js/app/jquery-1.11.1.min.js") }}" type="text/javascript"></script>
+	<script src="{{ static_url("js/bootstrap.js") }}" type="text/javascript"></script>
+	<script src="{{ static_url("js/layer.m.js") }}" type="text/javascript"></script>
+	
+</head>
+<body>
+
+<div id="navbar" class="navbar navbar-fixed-top" style="height:40px;">
+            <div class="navbar-inner default" data-bind="css: appearance.color" style="background:#133b55 !important; height:40px;">
+                <div class="container">
+                    <!--<a class="brand" href="#"> <span>3D打印盒子</span></a>-->
+					<a href="#" style="float:left; padding-left:20px;"><img src="static/img/logoBg.png" title="logo" width="86" style="height:40px;"></a>
+              
+		
+		<div class="container" style="margin-top:62px;">
+			<div class="row">
+				
+				<div class="accordion-group" data-bind="visible: isloginok" id="connection_accordion" style=" width:400px; margin:20px auto;">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#connection" style="color:#fff;font-weight: bold;">魔猴盒子版本号</a>
+                        </div>
+                        <div class="accordion-body collapse in" id="connection">
+                            <div class="accordion-inner">
+                               <p>当前版本号:<span class="hz_current">{{ current_ver }}</span></p>
+							   <p>最新版本号:<span class="hz_latest">{{ latest_ver }}</span></p>
+							   <p>升级包说明:<span class="hz_desc">{{ update_desc }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+{% if update_mode == 'net'%}				
+					<!--通过网络下载升级-->
+					<div class="accordion-group" data-bind="visible: isloginok" id="connection_accordion" style=" width:400px; margin:20px auto;">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#connection1" style="color:#fff;font-weight: bold;">通过网络下载升级</a>
+                        </div>
+                        <div class="accordion-body collapse in" id="connection1">
+                            <div class="accordion-inner">
+                              
+							  <div class="row-fluid print-control" style="margin-bootom:10px;">
+                                    <button class="btn span4 btn-primary"  id="hezi_download_btn_up" style="margin-left: 0;"><i class="icon-play"></i> <span>升级</span></button>
+                                </div>
+							  
+							  <div class="progress progress1" style="margin-top:10px;">
+                                    <div class="bar" style="width: 0%;"></div>
+                              </div>
+                              <div class="result_div"></div>
+                            </div>
+                        </div>
+                    </div>
+{% else %}				
+					<!--通过本地文件升级-->
+					<div class="accordion-group" data-bind="visible: isloginok" id="connection_accordion" style=" width:400px; margin:20px auto;">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#connection2" style="color:#fff;font-weight: bold;">通过本地文件升级</a>
+                        </div>
+                        <div class="accordion-body collapse" id="connection2">
+                            <div class="accordion-inner">
+							  <div class="row-fluid print-control">
+                                    
+                                    <button class="btn span4 btn-primary"  id="hezi_upgrade_btn"><i class="icon-play"></i> <span>上传</span></button>
+                                     <button class="btn span4 btn-primary"  id="hezi_upgrade_btn_up" style="display:none;margin-left:0;"><i class="icon-play"></i> <span>升级</span></button>
+                                    <button class="btn span4" ><i class="icon-stop"></i> 取消</button>
+                                </div>
+							  
+							   <div class="progress progress2">
+                                    <div class="bar" style="width: 0%;"></div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+				
+{% end %}  
+				
+			</div>
+</div>		
+<script>
+/*var p = 0;
+ var timer;
+
+      function run(){
+      		$('.progress1 .bar').show()
+            p+=5;
+            $(".progress1 .bar").css("width",p+"%");
+            if(p<100){
+                timer=setTimeout("run()",100);
+            }else{
+            	clearTimeout(timer); 
+               	setTimeout(function() {$('.progress1 .bar').hide()}
+				,1000);  
+				p=0;
+				$(".progress1 .bar").css("width","0%");
+
+					 layer.open({
+						content: '下载完毕',
+						style: 'background-color:#09C1FF; color:#fff; border:none;',
+						time: 1
+					});
+
+            }
+}*/
+
+
+
+
+$(function(){
+
+//当前版本号
+$(".hz_dangqian").text('');
+//最新版本号
+$(".hz_zuixin").text('');
+//升级包说明
+$(".hz_shuoiming").text('');
+
+
+var latest_ver = '{{ latest_ver }}'
+var current_ver = '{{ current_ver }}'
+var stage = '{{update_meta["stage"]}}'
+
+if ( latest_ver <= current_ver ){
+    $("#hezi_download_btn_up").attr('disabled','disabled');
+} else if ( stage == 'init' ){
+    $("#hezi_download_btn_up").removeAttr('disabled');
+} else {
+    $("#hezi_download_btn_up").attr('disabled','disabled');
+}
+
+
+function refreshVersion(){
+    $.ajax({  
+        type:'get',     
+        url:'netupdate_ajax',  
+        data:{type : 'cur_ver'},     
+        dataType:'json',    
+        success:function(data){
+            $(".hz_current").text(data.current_ver)
+        }
+    })
+}
+
+
+function checkProgress(){
+    var progress;
+    $.ajax({  
+        type:'get',     
+        url:'netupdate_ajax',  
+        data:{},
+        dataType:'json',
+        success:function(data){
+            progress = data.progress;
+            $('.progress1 .bar').css(
+                'width',
+                 progress + '%'
+            );
+            
+            $(".result_div").text("进步状况：" + data.stage)
+
+            if ( data.stage == 'finished'){
+                if (data.ret == 0){
+                    layer.open({
+                        content: '升级完毕',
+                        style: 'background-color:#09C1FF; color:#fff; border:none;',
+                        time: 2
+                    });
+                    $(".result_div").text("升级成功")
+                    refreshVersion();
+                }else {
+                    layer.open({
+                        content: '升级失败',
+                        style: 'background-color:#09C1FF; color:#fff; border:none;',
+                        time: 2
+                    });
+                    $(".result_div").text("升级失败：" + data.ret)
+                }
+                setTimeout(function() {$('.progress1 .bar').hide()},4000); 
+                return;
+            }
+            
+            setTimeout(checkProgress,1000);
+        }
+    })
+
+}
+
+
+/*1.网络下载升级*/
+$("#hezi_download_btn_up").click(function(){
+    $("#hezi_download_btn_up").attr('disabled','disabled');
+    $.ajax({  
+		type:'post',     
+	    url:'netupdate_ajax',  
+	    data:{},     
+	   	dataType:'json',    
+		success:function(data){
+            timer_p = setTimeout(checkProgress,1000);
+		}
+	})
+
+})
+
+
+
+
+/*2.本地文件升级*/
+//已勾选上传文件后自动升级
+$("#hezi_upgrade_btn").click(function(){ 
+	if($(".hezi_upgrade_checkbox").is(":checked")){ 
+		
+	//如果选中直接升级
+		$.ajax({     
+		    url:'',     
+		    type:'post',     
+		    data:{},     
+		   	dataType:'json',    
+		    success:function(data){  
+		    	  var progress = parseInt(data.loaded / data.total * 100, 10);
+					$('.progress1 .bar').css(
+						'width',
+						progress + '%'
+					);
+							
+					if (progress == 100) {
+						
+					setTimeout(function() {$('.progress1 .bar').hide()}
+				,1000);  
+
+
+				 layer.open({
+						content: '上传完成',
+						style: 'background-color:#09C1FF; color:#fff; border:none;',
+						time: 1
+					});
+		    	
+		    	}  
+		    }
+		})
+
+
+	}else{ 
+		//如果不勾选，点击上线之后，下载按钮变成“升级按钮”
+		$("#hezi_upgrade_btn").hide();
+		$("#hezi_upgrade_btn_up").show();
+	} 
+
+})
+
+
+/*2.本地文件升级*/
+//未勾选上传文件后自动升级
+$("#hezi_upgrade_btn_up").click(function(){ 
+	$.ajax({  
+			type:'post',     
+		    url:'',  
+		    data:{},     
+		   	dataType:'json',    
+			    success:function(data){   
+
+			    	 var progress = parseInt(data.loaded / data.total * 100, 10);
+					$('.progress2 .bar').css(
+						'width',
+						progress + '%'
+					);
+							
+					if (progress == 100) {
+						
+					setTimeout(function() {$('.progress2 .bar').hide()}
+				,1000);  
+
+			       layer.open({
+						content: '升级完毕',
+						style: 'background-color:#09C1FF; color:#fff; border:none;',
+						time: 1
+					});
+
+			    }  
+			}
+	})
+
+})
+
+
+
+	
+})
+
+</script>
+</body>
+</html>

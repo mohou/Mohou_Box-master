@@ -1,0 +1,30 @@
+    {% for wifiinfo in wifi_list %}
+		<tr class="tr">
+		  <td width="60%" class="tdOne"><a href="javascript:;" class="linkName">{{ wifiinfo[0] }}</a></td>
+		  <td width="20%" class="tdTwo">{{ wifiinfo[1] }}</td>
+		  
+		  {% if wifiinfo[2] == "on" %}
+		  <!--上锁-->
+		  <td width="10%" class="tdThree"><img src="static/img/wifi/lock_on.png"><input type="hidden" name="wifi_lock" value="on" /></td>
+		  {% else %}
+		  <!--解锁-->
+		  <td width="10%" class="tdThree"><img src="static/img/wifi/lock_off.png"><input type="hidden" name="wifi_lock" value="off" /></td>
+		  {% end %}
+		  
+		  {% if 80 < wifiinfo[3] <= 100 %}
+		  	<td width="10%" class="tdFour"><img src="static/img/wifi/signal1.png"></td>
+		  {% elif 60 < wifiinfo[3] <= 80 %}
+		  	<td width="10%" class="tdFour"><img src="static/img/wifi/signal2.png"></td>
+		  {% elif 40 < wifiinfo[3] <= 60 %}
+		  	<td width="10%" class="tdFour"><img src="static/img/wifi/signal3.png"></td>
+		  {% elif 20 < wifiinfo[3] <= 40 %}
+		  	<td width="10%" class="tdFour"><img src="static/img/wifi/signal4.png"></td>
+		  {% else %}
+			<td width="10%" class="tdFour"><img src="static/img/wifi/signal5.png"></td>
+		  {% end %}
+		
+	    </tr>
+		<tr class="hide">
+		  <td colspan="4" align="right" class="borderBttom"><input type="button" value="连接" class="linkBtn"></td>
+		</tr>
+	{% end %}
