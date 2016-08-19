@@ -29,6 +29,7 @@ Dependencies
 ------------
 
 Mohou box depends on a couple of python modules to do its job. 
+
         psutil, tornado, pyyaml, network-interfaces
 
 
