@@ -4,12 +4,15 @@
 Mohou box provides interfaces for controlling a 3D printer (RepRap, Ultimaker, ...). 
 
 Functions:
+
 1) remote control
+
 Keep an eye on the temperatures of your hotends and print bed and adapt them on the fly.
 Move the print head along all axes, extrude, retract or just define your own custom controls.
 Start, stop or just pause your current print job, you are in full control at any time.
 
 2) monitoring
+
 Watch remotely how your printer is printing your model.
 
 Installation
