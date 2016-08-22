@@ -1,19 +1,27 @@
 # Mohou_Box
 =========
 
-Mohou box provides interfaces for controlling a 3D printer (RepRap, Ultimaker, ...). 
+Mohou box is the 3D printer control software. This is its client part. Server part is located at 
+
+http://yun.mohou.com.
+
+Mohou box supports all Printrun compatible printers as well as Makerbots (Makerbot Replicator2 etc.). 
 
 Functions:
 
-1) remote control
+1) Autodetection and autoconnection
+
+No need to select port or baudrate, mohou box autodetects the 3D printer.
+
+2) Remote control
 
 Keep an eye on the temperatures of your hotends and print bed and adapt them on the fly.
 Move the print head along all axes, extrude, retract or just define your own custom controls.
 Start, stop or just pause your current print job, you are in full control at any time.
 
-2) monitoring
+3) Monitoring
 
-Watch remotely how your printer is printing your model.
+Web Cameras support(Watch remotely how your printer is printing your model).
 
 Installation
 ------------
