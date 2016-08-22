@@ -1,11 +1,14 @@
 # Mohou_Box
 =========
 
-Mohou box is the 3D printer control software. This is its client part. Server part is located at 
+Mohou box is the 3D printer control software. Mohou box supports all Printrun compatible printers as well as Makerbots (Makerbot Replicator2 etc.). This is its client part. Server part is located at 
 
 http://yun.mohou.com.
 
-Mohou box supports all Printrun compatible printers as well as Makerbots (Makerbot Replicator2 etc.). 
+The phone app part is located at
+
+Andoid version:　http://android.myapp.com/myapp/detail.htm?apkName=com.mohou.printer.
+iphone verion: apple app store.
 
 Functions:
 
