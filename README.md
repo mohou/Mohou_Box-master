@@ -7,9 +7,9 @@ http://yun.mohou.com.
 
 The phone app part is located at
 
-Andoid version:　http://android.myapp.com/myapp/detail.htm?apkName=com.mohou.printer.
+Andoid version:  http://android.myapp.com/myapp/detail.htm?apkName=com.mohou.printer.
 
-iphone verion: apple app store.
+iphone verion:  apple app store.
 
 Functions:
 
